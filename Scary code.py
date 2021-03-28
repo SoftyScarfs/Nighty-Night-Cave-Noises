@@ -23,7 +23,8 @@ cwd = os.getcwd()
 # light value detection
 
 # get image
-cap = cv2.VideoCapture(0)
+while True:
+    cap = cv2.VideoCapture(0)
     # Capture frame-by-frame
     ret, frame = cap.read()
     # Our operations on the frame come here
@@ -34,13 +35,15 @@ cap = cv2.VideoCapture(0)
     cv2.imshow('frame',gray)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         capture.release()
-cv2.destroyAllWindows()
-# When everything done, release the capture
-cap.release()
-# value detect historgram thing I think
-gray_hist = cv2.calcHist([gray], [0], None, [256], [0,256] )
-print(gray_hist)
-# play random sound sound
-SndNum = random.randint(0,12)
-playsound.playsound(str(cwd) + "\CaveSounds\CaveSnd" + str(SndNum) +".mp3")
-video.release()
+    cv2.destroyAllWindows()
+    # When everything done, release the capture
+    cap.release()
+    # value detect historgram thing I think
+    gray_hist = cv2.calcHist([gray], [0], None, [256], [0,256] )
+    print(int(gray_hist[140]))
+    if int(gray_hist[140]) < int(150):
+        # play random sound sound
+        SndNum = random.randint(0,12)
+        playsound.playsound(str(cwd) + "\CaveSounds\CaveSnd" + str(SndNum) +".mp3")
+        time.sleep(60)
+time.sleep(7)
