@@ -1,3 +1,4 @@
+
 # imports
 
 # pip install paysound
@@ -30,20 +31,16 @@ while True:
     # Our operations on the frame come here
     frameRes = rescaleFrame(frame)
     gray = cv2.cvtColor(frameRes, cv2.COLOR_BGR2GRAY)
-
-    # Display the resulting frame
-    cv2.imshow('frame',gray)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        capture.release()
     cv2.destroyAllWindows()
     # When everything done, release the capture
     cap.release()
     # value detect historgram thing I think
     gray_hist = cv2.calcHist([gray], [0], None, [256], [0,256] )
-    print(int(gray_hist[140]))
-    if int(gray_hist[140]) < int(150):
-        # play random sound sound
+    print(int(gray_hist[152]))
+    light_level = (int(gray_hist[152]) + int(gray_hist[151]) + int(gray_hist[150])) / 3
+    print(light_level)
+    if int(light_level) < int(110):
         SndNum = random.randint(0,12)
         playsound.playsound(str(cwd) + "\CaveSounds\CaveSnd" + str(SndNum) +".mp3")
-        time.sleep(60)
+        time.sleep(5)
 time.sleep(7)
