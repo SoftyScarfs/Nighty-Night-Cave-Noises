@@ -5,15 +5,23 @@ import os
 import random
 import PIL
 from PIL import Image
+import cv2, time
 
 # variables
 # Find where the file is saved so it will run properly on any computer
 cwd = os.getcwd()
-print(cwd)
+
 
 # light value detection
-filename = str("C:\\Users\\username\\Pictures\\Dark face.jpg")
-img = Image.open(filename)
+
+# video
+video=cv2.VideoCapture(0)
+check, frame = video.read()
+
+filename = frame
+# value detection
+img = filename
+print(frame)
 colors = img.getpixel((320,240))
 print(colors)
 str(colors).split(", ")
@@ -23,3 +31,4 @@ print(value)
 # play random sound sound
 SndNum = random.randint(0,12)
 playsound.playsound(str(cwd) + "\CaveSounds\CaveSnd" + str(SndNum) +".mp3")
+video.release()
